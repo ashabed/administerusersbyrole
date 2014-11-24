@@ -20,7 +20,13 @@ class RouteSubscriber extends RouteSubscriberBase {
   public function alterRoutes(RouteCollection $collection) {
       // Deny access to edit form based on X.
       if ($route = $collection->get('entity.user.edit_form')) {
-        $route->setRequirement('_access', 'FALSE');
+dpm('route is good');
+//setCondition instead of setRequirement
+// $collection->setCondition('context.getMethod() == "POST"');
+
+$account = \Drupal::currentUser();
+        $route->setCondition('$account->id() == 1');
+//        $route->setRequirement('_access', 'FALSE');
         dpm($route, 'route deny login access');
       }
   }
