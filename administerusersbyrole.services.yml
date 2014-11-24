@@ -1,5 +1,5 @@
 services:
   administerusersbyrole.access_check:
-    class: Drupal\administerusersbyrole\Access\AdministerusersbyroleAccessCheck
+    class: Drupal\administerusersbyrole\Access\AccessCheck
     tags:
       - { name: 'access_check' }
