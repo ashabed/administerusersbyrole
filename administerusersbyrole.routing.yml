@@ -1,0 +1,8 @@
+administerusersbyrole.edit_form:
+  path: '/user/{user}/edit'
+  defaults:
+    _entity_form: 'user.default'
+    _title_callback: 'Drupal\user\Controller\UserController::userTitle'
+  requirements:
+    _entity_access: 'user.update'
+    _permission: 'edit users with no custom roles'
