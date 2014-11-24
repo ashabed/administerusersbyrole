@@ -5,7 +5,7 @@
  * Contains \Drupal\administerusersbyrole\AdministerusersbyrolePermissions.
  */
 
-namespace Drupal\administerusersbyrole;
+namespace Drupal\Administerusersbyrole;
 
 use Drupal\Component\Utility\String;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
