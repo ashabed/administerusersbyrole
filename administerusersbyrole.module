@@ -1,5 +1,10 @@
 <?php
 
+  $autoload = __DIR__ . '/vendor/autoload.php';
+  if (file_exists($autoload)) {
+    require_once $autoload;
+  }
+
 /**
  * Generates a permission string for a given a role name.
  */
