@@ -11,64 +11,66 @@ function _administerusersbyrole_build_perm_string($role_name, $op = 'edit', $oth
   }
   return $perm;
 }
-/*
-function _administerusersbyrole_can_edit_user($account) {
-  $user = \Drupal::currentUser();
-  $account = User::load($uid);
+function _administerusersbyrole_can_edit_user($other_uid, $other_roles) {
+  $account = \Drupal::currentUser();
 
-  if ($account->uid == $user->uid) {
+  if ($account->id() == $other_uid) {
     return TRUE;
   }
 
   // allow only uid1 to edit uid1
-  if ($account->uid == 1) {
+  if ($other_uid == 1) {
     return FALSE;
   }
 
-  if ($account->roles === array(DRUPAL_AUTHENTICATED_RID => 'authenticated user')) {
-    if (!user_access('edit users with no custom roles')) {
+  $no_custom_roles = array('authenticated user');
+  if (is_array($other_roles) && ($other_roles === $no_custom_roles)) {
+    if (!$account->hasPermission('edit users with no custom roles')) {
       return FALSE;
     }
   }
 
   $allow = TRUE;
-  foreach ($account->roles as $rid => $role) {
+  foreach ($account->getRoles() as $rid => $role) {
     if ($rid === DRUPAL_AUTHENTICATED_RID) {
       continue;
     }
-    if (user_access(_administerusersbyrole_build_perm_string($role, 'edit', TRUE))) {
+    if ($account->hasPermission(_administerusersbyrole_build_perm_string($role, 'edit', TRUE))) {
       return TRUE;
     }
-    if (!user_access(_administerusersbyrole_build_perm_string($role, 'edit', FALSE))) {
+    if (!$account->hasPermission(_administerusersbyrole_build_perm_string($role, 'edit', FALSE))) {
       $allow = FALSE;
     }
   }
   return $allow;
+
 }
 
-function _administerusersbyrole_can_cancel_user($account) {
-  if ($account->uid == 1) {
+function _administerusersbyrole_can_cancel_user($other_uid, $other_roles) {
+  $account = \Drupal::currentUser();
+
+  if ($other_uid == 1) {
     return FALSE;
   }
 
-  if ($account->roles === array(DRUPAL_AUTHENTICATED_RID => 'authenticated user')) {
-    if (!user_access('cancel users with no custom roles')) {
+  $no_custom_roles = array('authenticated user');
+  if (is_array($other_roles) && ($other_roles === $no_custom_roles)) {
+    if (!$account->hasPermission('cancel users with no custom roles')) {
       return FALSE;
     }
   }
 
   $allow = TRUE;
-  foreach ($account->roles as $rid => $role) {
+  foreach ($account->getRoles() as $rid => $role) {
     if ($rid === DRUPAL_AUTHENTICATED_RID) {
       continue;
     }
-    if (user_access(_administerusersbyrole_build_perm_string($role, 'cancel', TRUE))) {
+    if ($account->hasPermission(_administerusersbyrole_build_perm_string($role, 'cancel', TRUE))) {
       return TRUE;
     }
-    if (!user_access(_administerusersbyrole_build_perm_string($role, 'cancel', FALSE))) {
+    if (!$account->hasPermission(_administerusersbyrole_build_perm_string($role, 'cancel', FALSE))) {
       $allow = FALSE;
     }
   }
   return $allow;
 }
-*/
