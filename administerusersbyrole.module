@@ -11,6 +11,16 @@ function _administerusersbyrole_build_perm_string($role_name, $op = 'edit', $oth
   }
   return $perm;
 }
+
+function administerusersbyrole_menu_links_discovered_alter(&$links) {
+  dpm($links, 'links');
+//  $links['entity.user.edit_form']
+}
+
+function _administerusersbyrole_access_check($arg) {
+dpm($arg, 'arg');
+}
+
 /*
 function _administerusersbyrole_can_edit_user($account) {
   $user = \Drupal::currentUser();
