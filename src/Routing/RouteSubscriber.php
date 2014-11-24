@@ -8,6 +8,7 @@ namespace Drupal\administerusersbyrole\Routing;
 
 use Drupal\Core\Routing\RouteSubscriberBase;
 use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\ExpressionLanguage\Expression;
 
 /**
  * Listens to the dynamic route events.
